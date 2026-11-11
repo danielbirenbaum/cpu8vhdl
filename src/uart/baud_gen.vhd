@@ -19,7 +19,7 @@ architecture rtl of baud_gen is
     -- Quantidade de ciclos de clock por tick
     constant CLKS_PER_TICK_16X : integer := CLK_HZ / (16 * BAUD);
     -- r_count_16x monitora a quantidade de clocks até chegar no número para um tick
-    -- r_c
+    -- r_cunt_bit monitora a quantidade de ticks para enviar 1 bit (para transmissão)
     signal r_count_16x : integer range 0 to CLKS_PER_TICK_16X - 1 := 0;
     signal r_count_bit : integer range 0 to 15 := 0;
 
