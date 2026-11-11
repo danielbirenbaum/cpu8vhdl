@@ -36,5 +36,4 @@
 | CLKS_PER_TICK_16X | integer | CLK_HZ / (16 * BAUD) |             |
 
 ## Processes
-- p_gen_16x: ( clk )
-- p_gen_bit: ( clk )
+- p_gen: ( clk )
