@@ -17,3 +17,9 @@ apenas o comando e o estado necessários à execução.
 As fontes de dados serão selecionadas por multiplexadores. O banco terá duas portas de leitura e
 uma de escrita. Não serão utilizados buffers Three-State ou barramentos internos em alta
 impedância.
+
+## Hierarquia do projeto
+
+* [`/src`](/src/) contém todos os módulos .vhd do projeto, com duas subpastas e um arquivo: [`cpu_top.vhd`](/src/cpu_top.vhd), [`/uart`](/src/uart/) e [`/cpu`](/src/cpu/)
+* [`/sim`](/sim/) contém todos os Testbenches e arquivos de visualização
+* [`/docs`](/docs/) contém todos os diagramas esquemáticos de cada módulo implementado
