@@ -19,7 +19,32 @@ uma de escrita. Não são utilizados buffers Three-State ou barramentos internos
 impedância.
 
 ## Hierarquia do projeto
-
+```
+cpu8vhdl-main/
+├── docs/                   # Documentação e diagramas da arquitetura
+│   ├── implemented/        # Esquemáticos e documentos gerados do RTL
+│   │   ├── cpu/
+│   │   └── uart/
+│   └── theoretical/        # Diagramas teóricos iniciais
+├── sim/                    # Testbenches e formas de onda de simulação
+│   ├── cpu/
+│   └── uart/
+└── src/                    # Código-fonte RTL em VHDL
+    ├── cpu/
+    │   ├── alu.vhd
+    │   ├── command_parser.vhd
+    │   ├── cpu_control.vhd
+    │   ├── cpu_datapath.vhd
+    │   ├── reg_file.vhd
+    │   └── response_formatter.vhd
+    ├── uart/
+    │   ├── baud_gen.vhd
+    │   ├── input_sync.vhd
+    │   ├── uart_rx.vhd
+    │   └── uart_tx.vhd
+    ├── cpu_pkg.vhd
+    └── cpu_top.vhd
+```
 * [`/src`](/src/) contém todos os módulos .vhd do projeto, com duas subpastas e dois arquivo: [`cpu_top.vhd`](/src/cpu_top.vhd),[`cpu_pkg.vhd`](/src/cpu_pkg.vhd), [`/uart`](/src/uart/) e [`/cpu`](/src/cpu/).
 * [`/sim`](/sim/) contém todos os Testbenches e formas de onda simulados no GTKWave através do GHDL.
 * [`/docs`](/docs/) contém todos os diagramas esquemáticos e documentação de cada módulo implementado. [`/docs/theoretical`](/docs/theoretical/) contém os diagramas de pré-projeto, contendo especificações inciais teoricas. [`/docs/implemented`](/docs/implemented/) contém os refericos diagrmas e documentações implementados efetivamente.
