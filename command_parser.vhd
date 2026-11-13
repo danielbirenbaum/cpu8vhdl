@@ -1,27 +1,7 @@
 -- =============================================================================
--- command_parser.vhd
 -- Recebe bytes da UART, guarda a linha (ate 32 caracteres), detecta o
 -- terminador (CR, LF ou CR+LF), decodifica e valida o comando e entrega os
 -- campos registrados ao cpu_control.
---
--- Autor: Lucas Elbert
---
--- Sintaxe aceita (somente maiusculas):
---   LDI  Rd,HH          ADD/SUB/AND/OR/XOR Rd,Ra,Rb
---   NOT  Rd,Ra          MOV  Rd,Ra          ADDI Rd,Ra,HH
---   * Rn: R0..R7      * HH: exatamente dois digitos hexadecimais (00..FF)
---   * Pelo menos um espaco depois da operacao; espacos opcionais antes e
---     depois de cada virgula e no final da linha.
---   * Linha vazia (ex.: o LF de um CR+LF) e ignorada, sem resposta.
---   * Mais de G_MAX_LEN caracteres, rx_error, operacao desconhecida,
---     registrador fora de R0..R7, imediato invalido ou numero/tipo de
---     operandos errado -> cmd_error.
---
--- Handshake com o cpu_control:
---   cmd_valid / cmd_error: pulso de 1 ciclo; os campos ficam estaveis depois.
---   Apos o pulso, o parser fica bloqueado: espera parser_block subir (UC em
---   EXECUTA/ERRO) e depois cair (UC em LIBERA). Bytes recebidos nesse
---   intervalo sao descartados.
 -- =============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
