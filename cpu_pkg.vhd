@@ -1,16 +1,4 @@
--- =============================================================================
--- cpu_pkg.vhd
--- Pacote compartilhado: codigos de operacao, codigos da ULA, selecoes dos MUXes
--- e funcoes auxiliares de ASCII.
---
--- Autor: Lucas Elbert (parser, unidade de controle e formatacao da resposta)
---
--- IMPORTANTE PARA A INTEGRACAO:
---   * ALU_*   precisa coincidir com a codificacao de alu_op usada em alu.vhd (Luan).
---   * SELB_* e SELR_* precisam coincidir com os MUXes de cpu_datapath.vhd (Luan).
---   * A ordem das flags em resp_flags(3 downto 0) e: Z, C, N, V.
---   Se o datapath usar outros valores, basta alterar as constantes aqui.
--- =============================================================================
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -56,7 +44,7 @@ package cpu_pkg is
   constant ALU_NOT : aluop_t := "0101";   -- opera sobre A (Ra)
 
   -- ---------------------------------------------------------------------------
-  -- Selecoes dos MUXes do datapath -- alinhar com cpu_datapath.vhd
+  -- Selecoes dos MUXes do datapath 
   -- ---------------------------------------------------------------------------
   -- MUX B: segundo operando da ULA
   constant SELB_REG : std_logic := '0';   -- segunda leitura do banco (Rb)
