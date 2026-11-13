@@ -1,0 +1,51 @@
+# Diretório de compilação e saída de simulações
+build/
+out/
+dist/
+
+# GHDL (análise, elaboração e executáveis de testbench)
+*.o
+*.cf
+work-obj*.cf
+e~*.o
+tb_*
+!tb_*.vhd
+
+# Formas de onda (GTKWave / simuladores)
+*.vcd
+*.ghw
+*.fst
+*.lxt
+*.lxt2
+# Descomente a linha abaixo se não quiser versionar layouts de sinais do GTKWave:
+# *.gtkw
+
+# Ferramentas de síntese FPGA (Intel Quartus / Vivado / Yosys)
+db/
+incremental_db/
+output_files/
+simulation/
+greybox_tmp/
+*.sof
+*.pof
+*.jic
+*.rpt
+*.pin
+*.summary
+*.smsg
+*.done
+*.qws
+*.qdf
+*.bak
+*.log
+*.jou
+
+# Editores e sistema operacional
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
