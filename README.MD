@@ -23,3 +23,11 @@ impedância.
 * [`/src`](/src/) contém todos os módulos .vhd do projeto, com duas subpastas e dois arquivo: [`cpu_top.vhd`](/src/cpu_top.vhd),[`cpu_pkg.vhd`](/src/cpu_pkg.vhd), [`/uart`](/src/uart/) e [`/cpu`](/src/cpu/).
 * [`/sim`](/sim/) contém todos os Testbenches e formas de onda simulados no GTKWave através do GHDL.
 * [`/docs`](/docs/) contém todos os diagramas esquemáticos e documentação de cada módulo implementado.
+
+
+## Divisão de responsabilidade
+
+#### Daniel Birenbaum
+- **Interface UART**: [`baud_gen.vhd`](/src/uart/baud_gen.vhd), [`input_sync.vhd`](/src/uart/input_sync.vhd), [`uart_rx.vhd`](/src/uart/uart_rx.vhd) e [`uart_tx.vhd`](/src/uart/uart_tx.vhd)
+
+<!--TODO: Responsabilidades do Luan e Lucas-->
