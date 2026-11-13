@@ -1,6 +1,13 @@
 # Interface UART
 
+#### Autor: Daniel Birenbaum
+
 A comunicação UART (Universal Asynchronous Receiver-Transmitter) é um protocolo serial assíncrono utilizado para a troca de dados entre o computador e o sistema digital (FPGA/ASIC). Por ser assíncrono, o sinal não carrega uma linha de relógio (clock) compartilhada; portanto, emissor e receptor devem concordar previamente com uma taxa de transmissão comum (Baud Rate, em bits por segundo).
+
+
+## Input Sync [`input_sync.vhd`](/src/uart/input_sync.vhd)
+Trata do primeiro "filtro" de dados que advém de fora da placa via comunicação UART. Os sinais *rx_i* e *rst_i* a priori assíncronos em relação ao sistema implementado na FPGA são tratados aqui e estabilizados. A implementação é simples, consiste em dois flip flops encadeados para cada sinal. Tais flip flops sincronizarão os sinais com o sistema para serem devidamente interpretados em [`uart_rx.vhd`](/src/uart/uart_rx.vhd).
+
 
 ## Baud Rate [`baud_gen.vhd`](/src/uart/baud_gen.vhd)
 A correta leitura da entrada serial é essencial para seu funcionamento pleno. Para mensurar a quantidade de ciclos de clocks, convenciona-se que 1 bit deverá ser lido a partir de 16 "ticks". De tal maneira que toma-se a amostragem (leitura do bit) no oitavo bit. Para converter corretamente, temos que:
@@ -13,10 +20,6 @@ A correta leitura da entrada serial é essencial para seu funcionamento pleno. P
 Onde CLKS_PER_TICK_16X é uma variável que contabiliza quantos ciclos de clock **um (1)** tick toma da frequência.
 
 Para a saída (transmissão) não é necessário 16 ticks para a correta amostragem, portanto, uma única saída `tick_bit` é suficiente. Para manter o padrão de que 16 ticks indicam um bit, o `tick_bit` espera o sinal `tick_16x`.
-
-
-
-
 
 ### Fontes e Referências
 

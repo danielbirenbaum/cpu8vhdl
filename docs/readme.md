@@ -1,8 +1,8 @@
 ## Arquivos
-
+<!--TODO: atualizar a lista de arquivos com o novo paradigma de topo e novos arquivos--> 
 | Arquivo | Conteúdo |
 |---|---|
-| `cpu_pkg.vhd` | Pacote compartilhado: opcodes, códigos `alu_op`, seleções dos MUXes, ordem das flags e funções ASCII. **Compilar primeiro.** |
+| `cpu_pkg.vhd` | Pacote compartilhado: opcodes, códigos `alu_op`, seleções dos MUXes, ordem das flags e funções ASCII.|
 | `command_parser.vhd` | Filtro de entrada, buffer de 32 caracteres, detector CR/LF/CR+LF, decodificador e validador |
 | `cpu_control.vhd` | FSM RECEBE → EXECUTA/ERRO → RESPONDE → LIBERA |
 | `response_formatter.vhd` | `Rn = HH` / flags / `ERR` + CR LF, handshake byte a byte com `uart_tx` |
