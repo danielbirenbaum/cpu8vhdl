@@ -1,3 +1,6 @@
+-- Integra banco de registradores, ULA, MUX B, MUX Resultado,
+-- registrador de flags e captura estavel da resposta.
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -5,20 +8,18 @@ use work.cpu_pkg.all;
 
 entity cpu_datapath is
     port (
-        clk       : in  std_logic;
-        rst       : in  std_logic;
-
-        ra        : in  regidx_t;
-        rb        : in  regidx_t;
-        rd        : in  regidx_t;
-        imm       : in  byte_t;
-        reg_we    : in  std_logic;
-        result_ld : in  std_logic;
-        flags_we  : in  std_logic;
-        alu_op    : in  aluop_t;
-        sel_b     : in  std_logic;
-        sel_res   : in  std_logic_vector(1 downto 0);
-
+        clk        : in  std_logic;
+        rst        : in  std_logic;
+        ra         : in  regidx_t;
+        rb         : in  regidx_t;
+        rd         : in  regidx_t;
+        imm        : in  byte_t;
+        reg_we     : in  std_logic;
+        result_ld  : in  std_logic;
+        flags_we   : in  std_logic;
+        alu_op     : in  aluop_t;
+        sel_b      : in  std_logic;
+        sel_res    : in  std_logic_vector(1 downto 0);
         resp_data  : out byte_t;
         resp_idx   : out regidx_t;
         resp_flags : out std_logic_vector(3 downto 0)
@@ -26,21 +27,17 @@ entity cpu_datapath is
 end entity cpu_datapath;
 
 architecture rtl of cpu_datapath is
-
     signal rd_a, rd_b : byte_t;
     signal op_b       : byte_t;
     signal alu_result : byte_t;
-
     signal alu_z, alu_c, alu_n, alu_v : std_logic;
-    signal wr_data : byte_t;
+    signal wr_data    : byte_t;
 
     signal flags_r : std_logic_vector(3 downto 0) := "0000";
     signal data_r  : byte_t := x"00";
     signal idx_r   : regidx_t := "000";
-
 begin
-
-    -- Banco de registradores
+    -- Banco de registradores: duas leituras e uma escrita.
     u_regs : entity work.reg_file
         port map (
             clk       => clk,
@@ -54,10 +51,10 @@ begin
             rd_data_b => rd_b
         );
 
-    -- MUX B
+    -- MUX B: escolhe Rb ou o valor imediato.
     op_b <= imm when sel_b = SELB_IMM else rd_b;
 
-    -- ULA
+    -- ULA: alu_op tem quatro bits, conforme definido em cpu_pkg.vhd.
     u_alu : entity work.alu
         port map (
             a         => rd_a,
@@ -70,14 +67,14 @@ begin
             v         => alu_v
         );
 
-    -- MUX Resultado
+    -- MUX Resultado: define o dado que sera escrito/capturado.
     with sel_res select
         wr_data <= alu_result when SELR_ALU,
                    rd_a       when SELR_A,
                    rd_b       when SELR_B,
                    imm        when others;
 
-    -- Registrador de flags e captura da resposta
+    -- Captura sincronizada das flags, do resultado e do registrador destino.
     process (clk)
     begin
         if rising_edge(clk) then
@@ -86,7 +83,6 @@ begin
                 data_r  <= x"00";
                 idx_r   <= "000";
             else
-
                 if flags_we = '1' then
                     flags_r(FLAG_Z) <= alu_z;
                     flags_r(FLAG_C) <= alu_c;
@@ -98,7 +94,6 @@ begin
                     data_r <= wr_data;
                     idx_r  <= rd;
                 end if;
-
             end if;
         end if;
     end process;
@@ -106,5 +101,4 @@ begin
     resp_data  <= data_r;
     resp_idx   <= idx_r;
     resp_flags <= flags_r;
-
 end architecture rtl;

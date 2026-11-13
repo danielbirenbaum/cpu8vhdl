@@ -1,3 +1,6 @@
+-- ULA de 8 bits: ADD, SUB, AND, OR, XOR e NOT.
+-- As flags de saida seguem a ordem Z, C, N e V no datapath.
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -18,39 +21,33 @@ end entity alu;
 
 architecture rtl of alu is
 begin
-
     process (a, b, op)
-
-        variable respa_v   : unsigned(8 downto 0);
+        variable ext_v   : unsigned(8 downto 0);
         variable res_v   : byte_t;
         variable carry_v : std_logic;
         variable ovf_v   : std_logic;
-
     begin
-
-        respa_v   := (others => '0');
+        -- Valores padrao para todos os caminhos combinacionais.
+        ext_v   := (others => '0');
         res_v   := (others => '0');
         carry_v := '0';
         ovf_v   := '0';
 
         case op is
-
             when ALU_ADD =>
-                respa_v := resize(unsigned(a), respa_v'length)
-                          + resize(unsigned(b), respa_v'length);
-
-                res_v := std_logic_vector(respa_v(7 downto 0));
-                carry_v := respa_v(8);
-
+                ext_v := resize(unsigned(a), ext_v'length)
+                       + resize(unsigned(b), ext_v'length);
+                res_v := std_logic_vector(ext_v(7 downto 0));
+                carry_v := ext_v(8);
                 ovf_v := (not (a(7) xor b(7)))
                          and (res_v(7) xor a(7));
 
             when ALU_SUB =>
-                respa_v := resize(unsigned(a), respa_v'length)
-                       - resize(unsigned(b), respa_v'length);
+                ext_v := resize(unsigned(a), ext_v'length)
+                       - resize(unsigned(b), ext_v'length);
+                res_v := std_logic_vector(ext_v(7 downto 0));
 
-                res_v := std_logic_vector(respa_v(7 downto 0));
-
+                -- Nesta CPU, C=1 significa que a subtracao NAO teve borrow.
                 if unsigned(a) >= unsigned(b) then
                     carry_v := '1';
                 else
@@ -74,7 +71,6 @@ begin
 
             when others =>
                 res_v := (others => '0');
-
         end case;
 
         resultado <= res_v;
@@ -88,7 +84,5 @@ begin
         c <= carry_v;
         n <= res_v(7);
         v <= ovf_v;
-
     end process;
-
 end architecture rtl;
