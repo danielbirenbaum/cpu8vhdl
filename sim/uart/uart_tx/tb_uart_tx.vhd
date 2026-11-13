@@ -33,7 +33,7 @@ begin
     end process;
 
     u_baud : entity work.baud_gen
-        port map (clk => clk, rst_s => rst, tick_16x => open, tick_bit => tick_bit);
+        port map (clk => clk, rst => rst, tick_16x => open, tick_bit => tick_bit);
 
     dut : entity work.uart_tx
         port map (clk => clk, rst => rst, tick_bit => tick_bit,
