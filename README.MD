@@ -20,6 +20,6 @@ impedância.
 
 ## Hierarquia do projeto
 
-* [`/src`](/src/) contém todos os módulos .vhd do projeto, com duas subpastas e um arquivo: [`cpu_top.vhd`](/src/cpu_top.vhd), [`/uart`](/src/uart/) e [`/cpu`](/src/cpu/)
-* [`/sim`](/sim/) contém todos os Testbenches e arquivos de visualização
-* [`/docs`](/docs/) contém todos os diagramas esquemáticos de cada módulo implementado
+* [`/src`](/src/) contém todos os módulos .vhd do projeto, com duas subpastas e dois arquivo: [`cpu_top.vhd`](/src/cpu_top.vhd),[`cpu_pkg.vhd`](/src/cpu_pkg.vhd), [`/uart`](/src/uart/) e [`/cpu`](/src/cpu/).
+* [`/sim`](/sim/) contém todos os Testbenches e formas de onda simulados no GTKWave através do GHDL.
+* [`/docs`](/docs/) contém todos os diagramas esquemáticos e documentação de cada módulo implementado.
