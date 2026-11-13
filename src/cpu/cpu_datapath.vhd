@@ -1,7 +1,7 @@
 library ieee;
-use ieee.std_logic_1164.all; -- Tipos logicos e operacoes com bits
-use ieee.numeric_std.all; -- Operacoes numericas
-use work.cpu_pkg.all; -- Tipos e constantes definidos no pacote da CPU
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.cpu_pkg.all;
 
 entity cpu_datapath is
     port (
